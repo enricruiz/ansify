@@ -6,7 +6,15 @@ A command-line tool to convert PNG images to ANSI escape codes.
 Installation
 ------------
 
-    sudo gem install ansify
+You'll need to install
+    
+    gem install trollop
+    gem install rainbow
+    gem install chunky_png
+    
+Then
+
+    gem install ansify
 
 Usage
 -----
