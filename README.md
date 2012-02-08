@@ -28,6 +28,19 @@ Usage
          --version, -v:   Print version and exit
             --help, -h:   Show this message
 
+Example
+-------
+
+Input:
+
+![nyan](https://github.com/enricruiz/ansify/raw/master/examples/nyan.png)
+
+Then
+ 
+    ansify --file ~/dev/ansify/examples/nyan.png --resize 40
+
+![ansi](https://github.com/enricruiz/ansify/raw/master/examples/output.png)
+    
 Todo
 ----
 
