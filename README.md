@@ -31,7 +31,7 @@ Usage
 Example
 -------
 
-Input:
+Input
 
 ![nyan](https://github.com/enricruiz/ansify/raw/master/examples/nyan.png)
 
