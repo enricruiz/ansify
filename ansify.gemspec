@@ -10,6 +10,10 @@ Gem::Specification.new do |s|
 
   s.executables = ["ansify"]
 
+  s.add_dependency "trollop"
+  s.add_dependency "rainbow"
+  s.add_dependency "chunky_png"
+
   s.files = %w[
     README.md
     Rakefile
