@@ -1,45 +1,51 @@
 #!/usr/bin/env ruby
 
-require 'chunky_png'
+require 'RMagick'
 require 'rainbow'
 require 'trollop'
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 options = Trollop::options do
   version "ansify v#{VERSION}"
 
-  opt :file, "PNG file to convert", :type => String
-  opt :resize, "Resize image in % [1, 99]", :type => :int
-  opt :nearest, "Resize using nearest neighbor sampling instead of bilinear sampling"
+  opt :image, "Image to ansify", :type => String
+  opt :scale, "Scale factor", :type => :float
+  opt :sampling, "Scale image using pixel sampling", :default => false
+  opt :output, "Output file", :type => String
 end
 
-Trollop::die :file, "must exist" unless File.exist?(options[:file]) if options[:file]
-Trollop::die :resize, "> 0 and < 100" unless (1..99).include? options[:resize] if options[:resize]
+image = Magick::Image.read(options[:image]).first
 
-image = ChunkyPNG::Image.from_file(options[:file])
+width = image.columns
+height = image.rows
 
-if options[:resize]
-  w = image.dimension.width - (image.dimension.width * options[:resize] / 100)
-  h = image.dimension.height - (image.dimension.height * options[:resize] / 100)
-
-  if options[:nearest]
-    image = image.resample_nearest_neighbor(w, h)
+if options[:scale]
+  if options[:sampling]
+    image = image.sample(options[:scale])
   elsif
-    image = image.resample_bilinear(w, h)
+    image = image.scale(options[:scale])
   end
+
+  width = image.columns
+  height = image.rows
 end
 
-(0..image.dimension.height - 1).each do |y|
-  (0..image.dimension.width - 1).each do |x|
-    pixel = image[x, y]
-    r = ChunkyPNG::Color.r(pixel)
-    g = ChunkyPNG::Color.g(pixel)
-    b = ChunkyPNG::Color.b(pixel)
-    a = ChunkyPNG::Color.a(pixel)
+output = $stdout
 
-    print a > 128 ? "  ".background(r, g, b) : "  "
+if options[:output]
+  output = File.open(options[:output], 'w')
+end
+
+(0..height).each do |y|
+  (0..width).each do |x|
+    pixel = image.pixel_color(x, y)
+    opacity = pixel.opacity
+    color = pixel.to_color(Magick::AllCompliance, false, 8, true)
+
+    colorize = (opacity == 0)
+    output.print colorize ? "  ".background(color) : "  "
   end
-  print "\n"
+  output.print "\n"
 end
 

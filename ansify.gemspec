@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name              = 'ansify'
-  s.version           = '0.0.1'
+  s.version           = '0.0.2'
   s.date              = '2012-02-08'
   s.summary     = "Covert PNG images to ANSI escape codes"
   s.description = "A command-line tool to convert PNG images to ANSI escape codes."
@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "trollop"
   s.add_dependency "rainbow"
-  s.add_dependency "chunky_png"
+  s.add_dependency "rmagick"
 
   s.files = %w[
     README.md

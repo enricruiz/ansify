@@ -1,7 +1,7 @@
 ansify
 ======
 
-A command-line tool to convert PNG images to ANSI escape codes.
+A command-line tool to convert images to ANSI escape codes.
 
 Installation
 ------------
@@ -12,29 +12,25 @@ Usage
 -----
 
     > ansify --help
-    ansify v0.0.1
+    ansify v0.0.2
     Options:
-        --file, -f <s>:   PNG file to convert
-      --resize, -r <i>:   Resize image in % [1, 99]
-         --nearest, -n:   Resize using nearest neighbor sampling instead of bilinear sampling
+       --image, -i <s>:   Image to ansify
+       --scale, -s <f>:   Scale factor
+        --sampling, -a:   Scale image using pixel sampling
+      --output, -o <s>:   Output file
          --version, -v:   Print version and exit
             --help, -h:   Show this message
 
-Example
--------
+Try this
 
-Input
-
-![nyan](https://github.com/enricruiz/ansify/raw/master/examples/nyan.png)
-
-Then
+    ansify --image https://github.com/enricruiz/ansify/raw/master/examples/nyan.png
  
-    ansify --file ~/dev/ansify/examples/nyan.png --resize 40
+    ansify --image https://github.com/enricruiz/ansify/raw/master/examples/nyan.png --scale 0.5
+ 
+    ansify --image https://github.com/enricruiz/ansify/raw/master/examples/nyan.png --scale 0.5 --sampling
+
+Example output
+---------------
 
 ![ansi](https://github.com/enricruiz/ansify/raw/master/examples/output.png)
-    
-Todo
-----
 
-  * Add file output
-  * Handle resampling to higher resolution
